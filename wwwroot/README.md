@@ -1,0 +1,5 @@
+Angular 2 in ASP.NET Core 1.0 using Visual Studio Code
+
+Run this after Clone or downloading.
+ ** From console run "npm install", folder should be where package.json is located **
+  
