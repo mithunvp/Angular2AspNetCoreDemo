@@ -1,46 +1,51 @@
-var gulp = require('gulp');
 var ts = require('gulp-typescript');
+var gulp = require('gulp');
+var clean = require('gulp-clean');
 
-//Refer's TypeScript Configuration file
-var tsProject = ts.createProject('scripts/tsconfig.json');
+var destPath = './wwwroot/libs/';
 
-//"setup" - Task to move Angular 2 & related files, bootstrap, Jquery 
-//from node_modules to ASP.NET Core 1.0's wwwroot folder 
-// All the files will part of libs folder
-gulp.task('setup', function (done) {
+// Delete the dist directory
+gulp.task('clean', function() {
+    return gulp.src(destPath)
+        .pipe(clean());
+});
+
+//Moves Angular 2 & related scripts to wwwroot folder of ASP.NET Core app
+gulp.task("scriptsNStyles", () => {
     gulp.src([
-      'node_modules/angular2/bundles/js',
-      'node_modules/angular2/bundles/angular2.*.js*',
-      'node_modules/angular2/bundles/angular2-polyfills.js',
-      'node_modules/angular2/bundles/http.*.js*',
-      'node_modules/angular2/bundles/router.*.js*',
-      'node_modules/es6-shim/es6-shim.min.js*',
-      'node_modules/systemjs/dist/*.*',
-      'node_modules/jquery/dist/jquery.*js',
-      'node_modules/bootstrap/dist/js/bootstrap*.js',
-      'node_modules/rxjs/bundles/Rx.js'
-    ]).pipe(gulp.dest('./wwwroot/libs/'));
+            'es6-shim/es6-shim.min.js',
+            'systemjs/dist/system-polyfills.js',
+            'systemjs/dist/system.src.js',
+            'reflect-metadata/Reflect.js',
+            'rxjs/**',
+            'zone.js/dist/**',
+            '@angular/**',
+            'jquery/dist/jquery.*js',
+            'bootstrap/dist/js/bootstrap*.js',
+        ], {
+            cwd: "node_modules/**"
+        })
+        .pipe(gulp.dest("./wwwroot/libs"));
 
     gulp.src([
-      'node_modules/bootstrap/dist/css/bootstrap.css'
+        'node_modules/bootstrap/dist/css/bootstrap.css'
     ]).pipe(gulp.dest('./wwwroot/libs/css'));
 });
 
 //ts - task to transpile TypeScript files to JavaScript using Gulp-TypeScript 
-gulp.task('ts', function (done) {    
+var tsProject = ts.createProject('scripts/tsconfig.json');
+gulp.task('ts', function(done) {    
     var tsResult = gulp.src([
-        "scripts/*.ts"
-    ])
-      .pipe(ts(tsProject), undefined, ts.reporter.fullReporter());
+            "scripts/*.ts"
+        ])
+        .pipe(ts(tsProject), undefined, ts.reporter.fullReporter());
     return tsResult.js.pipe(gulp.dest('./wwwroot/appScripts'));
 });
 
-//watch -- Task to watch for any changes under 'setup' and 'ts' tasks
 gulp.task('watch', ['watch.ts']);
 
-gulp.task('watch.ts', ['ts'], function () {
+gulp.task('watch.ts', ['ts'], function() {
     return gulp.watch('scripts/*.ts', ['ts']);
 });
 
-gulp.task('default', ['setup', 'watch']);
-
+gulp.task('default', ['scriptsNStyles', 'watch']);

@@ -7,14 +7,20 @@
     ],
     "tasks": [
 		{
-			"taskName": "setup",
+			"taskName": "scriptsNStyles",
+			"isBuildCommand": true,
+			"showOutput": "always"
+		},
+		{
+			"taskName": "clean",
 			"isBuildCommand": true,
 			"showOutput": "always"
 		},
 		{
 			"taskName": "ts",
 			"isBuildCommand": true,
-			"showOutput": "always"
+			"showOutput": "always",
+			"problemMatcher": "$tsc"
 		},
 		{
 			"taskName": "watch",

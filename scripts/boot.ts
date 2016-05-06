@@ -1,4 +1,5 @@
-///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
-import {bootstrap} from 'angular2/platform/browser'
-import {AppComponent} from './app'
+///<reference path="./../typings/browser/ambient/es6-shim/index.d.ts"/>
+import {bootstrap}    from '@angular/platform-browser-dynamic';
+import {AppComponent} from './app';
+
 bootstrap(AppComponent);

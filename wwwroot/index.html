@@ -5,22 +5,14 @@
     <title>Angular 2 with ASP.NET Core 1.0</title>
     <!-- 1. Load libraries -->
     <link href="libs/css/bootstrap.css" rel="stylesheet" />
-    <script src="libs/es6-shim.min.js"></script>
-    <script src="libs/system-polyfills.js"></script>
-    <script src="libs/angular2-polyfills.js"></script>
-    <script src="libs/system.js"></script>
-    <script src="libs/rx.js"></script>
-    <script src="libs/angular2.dev.js"></script>
+    <script src="libs/es6-shim/es6-shim.min.js"></script>
+    <script src="libs/zone.js/dist/zone.js"></script>
+    <script src="libs/reflect-metadata/Reflect.js"></script>    
+    <script src="libs/systemjs/dist/system.src.js"></script>
+    
+    
     <!-- 2. Configure SystemJS -->
-    <script>
-        System.config({
-            packages: {
-                appScripts: {                    
-                    defaultExtension: 'js'
-                }
-            }
-        });        
-    </script>
+    <script src="systemjs.config.js"></script>
     <script>        
         System.import('appScripts/boot')
               .then(null, console.error.bind(console));

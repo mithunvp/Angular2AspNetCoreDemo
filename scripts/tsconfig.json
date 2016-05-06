@@ -8,7 +8,13 @@
     "outDir": "../wwwroot/appScripts/",
     "removeComments": false,
     "sourceMap": true,
-    "target": "es5"
-  },    
-  "exclude": ["node_modules"]
+    "target": "es5",
+    "moduleResolution": "node",
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "exclude": [
+    "node_modules",
+    "typings/main",
+    "typings/main.d.ts"
+  ]
 }
